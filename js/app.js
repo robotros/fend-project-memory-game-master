@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const deck = ["fa fa-diamond",
+const starterDeck = ["fa fa-diamond",
 	"fa fa-diamond",
 	"fa fa-paper-plane-o",
 	"fa fa-paper-plane-o",
@@ -12,21 +12,22 @@ const deck = ["fa fa-diamond",
 	"fa fa-cube",
 	"fa fa-cube",
 	"fa fa-leaf",
-	"fa fa-leaf"
+	"fa fa-leaf",
 	"fa fa-bicycle",
 	"fa fa-bicycle",
 	"fa fa-bomb",
-	"fa fa-bomb"]
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+	"fa fa-bomb"];
+
+// DOM Variables
+const stars = $(".stars");
+const moves = $(".moves");
+const deck = $(".deck");
+const restart = $(".restart");
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -37,10 +38,41 @@ function shuffle(array) {
     }
 
     return array;
-}
+};
 
 
+function startGame() {
+	// shuffle the list of cards using the "shuffle" method
+	let newDeck = shuffle(starterDeck);
+	let c = document.createDocumentFragment();
+	//loop through each card and create its HTML
+	newDeck.forEach(function(cards) {
+    	const card = document.createElement("li");
+    	card.className = "card";
 
+    	const symbol = document.createElement("i");
+    	symbol.className = cards;
+
+    	card.appendChild(symbol);
+   	 	c.appendChild(card);
+	});
+
+	//add each card's HTML to the page
+	deck.children().remove();
+	deck.append(c);
+};
+
+/**
+* @description sets selected color
+*/
+restart.click(function(event) {
+	startGame();
+});
+
+
+deck.on("click", ".card", function(event) {
+      $(this).addClass("open");
+  });
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
