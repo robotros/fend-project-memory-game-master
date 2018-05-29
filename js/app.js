@@ -27,8 +27,11 @@ const starterDeck = ["fa fa-diamond",
 const stars = $(".stars");
 const moves = $(".moves");
 const deck = $(".deck");
-const restart = $(".restart");
 const timer = $(".timer");
+const gameOverModal = $("#gameOverModal");
+
+// buttons
+const restart = $(".restart");
 
 // variables
 let open = [];
@@ -196,6 +199,7 @@ function endTurn(){
 	// check win condition
 	if (score == (starterDeck.length/2)){
 		stopTimer(timerId);
+		gameOverModal.modal("show")
 		//startGame();
 	}
 }
