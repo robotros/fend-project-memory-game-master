@@ -23,6 +23,7 @@ const stars = $(".stars");
 const moves = $(".moves");
 const deck = $(".deck");
 const restart = $(".restart");
+const timer = $(".timer");
 
 // variables
 let open = [];
@@ -74,6 +75,10 @@ function updateScore(){
 	});
 }
 
+function updateTimer(){
+	timer.html(++seconds);
+}
+
 
 /**
 * @description resets the move counter to 0
@@ -112,7 +117,7 @@ function startGame() {
 	resetTurns();
 	resetStars();
 	resetTimer();
-	updateScore();
+
 
 	// shuffle the list of cards using the "shuffle" method
 	let newDeck = shuffle(starterDeck);
@@ -137,6 +142,9 @@ function startGame() {
 	//add each card's HTML to the page
 	deck.children().remove();
 	deck.append(frag);
+
+	updateScore();
+	setInterval(updateTimer, 3000);
 };
 
 /**
