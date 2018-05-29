@@ -24,11 +24,15 @@ const moves = $(".moves");
 const deck = $(".deck");
 const restart = $(".restart");
 
-
-//variables
+// variables
 let open = [];
 let turns = 0;
-let score =0;
+let score = 0;
+let seconds = 0;
+let starCount = 3;
+
+
+// star conditions
 const threeStar = 20;
 const twoStar =25;
 
@@ -51,38 +55,66 @@ function shuffle(array) {
     return array;
 };
 
+function updateScore(){
+
+	// update turn count
+	moves.html(turns);
+
+	// update stars
+	let starList = stars.children("li");
+	let i = 0;
+	starList.each(function() {
+		if (i < starCount){
+			 $(this).find('i').removeClass('fa fa-star-o');
+			 $(this).find('i').addClass('fa fa-star');
+		} else {
+			$(this).find('i').addClass('fa fa-star-o');
+		}
+		i++;
+	});
+}
+
+
 /**
 * @description resets the move counter to 0
 */
 function resetTurns(){
 	turns=0;
-	moves.html(turns);
 }
 
 /**
 * @description resets the star count to 3
 */
 function resetStars(){
-
+	starCount = 3;
 }
 
 /**
 * @description resets the timer to 0
 */
 function resetTimer(){
+	seconds = 0;
+}
 
+/**
+* @description resets the score to 0
+*/
+function resetScore(){
+	score = 0;
 }
 
 /**
 * @description Starts new game
 */
 function startGame() {
-	// shuffle the list of cards using the "shuffle" method
+	// reset game parameters.
+	resetScore();
 	resetTurns();
 	resetStars();
 	resetTimer();
-	score = 0;
+	updateScore();
 
+	// shuffle the list of cards using the "shuffle" method
 	let newDeck = shuffle(starterDeck);
 	let frag = document.createDocumentFragment();
 
@@ -118,9 +150,23 @@ restart.click(function(event) {
 * @description incriments move counter, updates score
 */
 function endTurn(){
+	//incriment turns
 	turns++;
-	moves.html(turns);
-	if (score > 7){
+
+	// check condition for star rating
+	turns < threeStar ? starCount = 3 :
+		turns < twoStar ? starCount = 2 : starCount = 1;
+
+	// TODO:update timer
+
+	// testing purposes only
+	let scoreList=[starterDeck.length/2, score, turns, starCount, seconds,(score == (starterDeck.length/2))];
+	console.log(scoreList);
+	// update HTML
+	updateScore();
+
+	// check win condition
+	if (score == (starterDeck.length/2)){
 		startGame();
 	}
 }
@@ -176,15 +222,19 @@ function openCard(card){
 * @description listener for a card.
 */
 deck.on("click", ".card", function(event) {
-	if (!$(this).hasClass("open") && !$(this).hasClass("match")){
-			showCard($(this));
-			let test=($(this));
+
+	let selectedCard =($(this));
+
+	if (!selectedCard.hasClass("open") && !selectedCard.hasClass("match")){
+			showCard(selectedCard);
 			setTimeout(function(){
-      			openCard(test);
+      			openCard(selectedCard);
       		},1000)
 	} else {
-		hideCard(open.pop());
-		endTurn();
+		setTimeout(function(){
+			hideCard(open.pop());
+			endTurn();
+		},1000)
 	}
   });
 
