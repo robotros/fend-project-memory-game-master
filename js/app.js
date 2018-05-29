@@ -1,3 +1,8 @@
+
+/* TODO:
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
+
 /*
  * Create a list that holds all of your cards
  */
@@ -31,7 +36,8 @@ let turns = 0;
 let score = 0;
 let seconds = 0;
 let starCount = 3;
-
+let timerId=0;
+let gameFlag=0;
 
 // star conditions
 const threeStar = 20;
@@ -56,6 +62,9 @@ function shuffle(array) {
     return array;
 };
 
+/**
+* @description updates turns and stars on the html
+*/
 function updateScore(){
 
 	// update turn count
@@ -75,10 +84,19 @@ function updateScore(){
 	});
 }
 
+/**
+* @description updates the timer
+*/
 function updateTimer(){
 	timer.html(++seconds);
 }
 
+/**
+* @description stops the timer
+*/
+function stopTimer(){
+	clearInterval(timerId);
+}
 
 /**
 * @description resets the move counter to 0
@@ -95,10 +113,12 @@ function resetStars(){
 }
 
 /**
-* @description resets the timer to 0
+* @description resets the timer to 0 and updates html
 */
 function resetTimer(){
+	stopTimer();
 	seconds = 0;
+	timer.html(seconds);
 }
 
 /**
@@ -143,8 +163,10 @@ function startGame() {
 	deck.children().remove();
 	deck.append(frag);
 
+	// update score box and start timer
 	updateScore();
-	setInterval(updateTimer, 3000);
+	timerId = setInterval(updateTimer, 3000);
+	gameFlag = 1;
 };
 
 /**
@@ -155,7 +177,7 @@ restart.click(function(event) {
 });
 
 /**
-* @description incriments move counter, updates score
+* @description incriments move counter, updates score, checks win conditions
 */
 function endTurn(){
 	//incriment turns
@@ -165,8 +187,6 @@ function endTurn(){
 	turns < threeStar ? starCount = 3 :
 		turns < twoStar ? starCount = 2 : starCount = 1;
 
-	// TODO:update timer
-
 	// testing purposes only
 	let scoreList=[starterDeck.length/2, score, turns, starCount, seconds,(score == (starterDeck.length/2))];
 	console.log(scoreList);
@@ -175,7 +195,8 @@ function endTurn(){
 
 	// check win condition
 	if (score == (starterDeck.length/2)){
-		startGame();
+		stopTimer(timerId);
+		//startGame();
 	}
 }
 
@@ -231,6 +252,11 @@ function openCard(card){
 */
 deck.on("click", ".card", function(event) {
 
+	if (gameFlag===0){
+		timerId = setInterval(updateTimer, 3000);
+		gameFlag = 1;
+	}
+
 	let selectedCard =($(this));
 
 	if (!selectedCard.hasClass("open") && !selectedCard.hasClass("match")){
@@ -246,6 +272,4 @@ deck.on("click", ".card", function(event) {
 	}
   });
 
-/* TODO:
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+
