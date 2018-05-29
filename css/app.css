@@ -113,3 +113,22 @@ li {
     float: right;
     cursor: pointer;
 }
+
+
+.starsModal {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.starsModal li {
+    list-style: none;
+    display: inline-block;
+}
+
+.center {
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+}

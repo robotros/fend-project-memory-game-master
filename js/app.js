@@ -1,7 +1,10 @@
+/**
+* Author: Aron Roberts
+* Last Updated: 05/29/2018
+* Descirption: Matching Game
+*
+*/
 
-/* TODO:
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
 
 /*
  * Create a list that holds all of your cards
@@ -29,6 +32,7 @@ const moves = $(".moves");
 const deck = $(".deck");
 const timer = $(".timer");
 const gameOverModal = $("#gameOverModal");
+const starsModal = $(".starsModal");
 
 // buttons
 const restart = $(".restart");
@@ -76,6 +80,7 @@ function updateScore(){
 	// update stars
 	let starList = stars.children("li");
 	let i = 0;
+
 	starList.each(function() {
 		if (i < starCount){
 			 $(this).find('i').removeClass('fa fa-star-o');
@@ -85,6 +90,21 @@ function updateScore(){
 		}
 		i++;
 	});
+
+	// update stars inside modal
+	starList = starsModal.children("li");
+	i = 0;
+
+	starList.each(function() {
+		if (i < starCount){
+			 $(this).find('i').removeClass('fa fa-star-o');
+			 $(this).find('i').addClass('fa fa-star');
+		} else {
+			$(this).find('i').addClass('fa fa-star-o');
+		}
+		i++;
+	});
+
 }
 
 /**
@@ -191,8 +211,9 @@ function endTurn(){
 		turns < twoStar ? starCount = 2 : starCount = 1;
 
 	// testing purposes only
-	let scoreList=[starterDeck.length/2, score, turns, starCount, seconds,(score == (starterDeck.length/2))];
-	console.log(scoreList);
+	//let scoreList=[starterDeck.length/2, score, turns, starCount, seconds,(score == (starterDeck.length/2))];
+	//console.log(scoreList);
+
 	// update HTML
 	updateScore();
 
@@ -200,9 +221,8 @@ function endTurn(){
 	if (score == (starterDeck.length/2)){
 		stopTimer(timerId);
 		gameOverModal.modal("show")
-		//startGame();
 	}
-}
+};
 
 /**
 * @description shows a cards symbol
@@ -230,7 +250,6 @@ function matchCard(pair){
 	pair[1].addClass("match");
 	score++;
 };
-
 
 /**
 * @description adds card to open list. compares to other cards
@@ -275,5 +294,3 @@ deck.on("click", ".card", function(event) {
 		},1000)
 	}
   });
-
-
