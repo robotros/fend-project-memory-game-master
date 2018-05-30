@@ -288,13 +288,10 @@ deck.on("click", ".card", function(event) {
 			setTimeout(function(){
       			compareCards();
       		},1000);
-		}
-		// else {
+		} // else {
 		/* else adds functionality to deselct a card (counts as a move)*/
-		// 	setTimeout(function(){
 		// 		hideCard(open.pop());
 		// 		endTurn();
-		// 	},1000);
 		// }
 	}
 });
