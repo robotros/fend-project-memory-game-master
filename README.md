@@ -34,6 +34,9 @@ Each turn:
 The following will be required to run this program
 
 1. A compatible web browser
+2. bootstrap 4.1.1 *
+3. JQuery 3.3.1 *
+4. font-awesome 4.6.1 *
 
 ## Quickstart
 
@@ -42,6 +45,7 @@ The following will be required to run this program
 ## Footnotes
 
 * Tested with Chrome
+* Dependecies included using CDNS active internet connection required *
 * A version of this project can be accessed at [codepen.io](https://codepen.io/robotros/pen/jKOeyZ)
 * For specific, detailed description, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
 * This repository used starter code for _all_ Udacity students from the [udacity repo for this project](https://github.com/udacity/fend-project-memory-game)
