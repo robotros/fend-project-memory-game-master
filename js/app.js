@@ -242,6 +242,20 @@ function matchCard(pair){
 	pair[1].addClass("match");
 	score++;
 };
+/**
+* @description compares open cards.
+*/
+function compareCards(){
+	if (open.length > 1){
+		if (open[0].find("i").attr("class") === open[1].find("i").attr("class")) {
+			matchCard(open);
+		}
+
+		hideCard(open.pop());
+		hideCard(open.pop());
+		endTurn();
+	}
+}
 
 /**
 * @description adds card to open list. compares to other cards
@@ -249,17 +263,6 @@ function matchCard(pair){
 */
 function openCard(card){
 	open.push(card);
-
-	if (open.length > 1){
-
-			if (open[0].find("i").attr("class") === open[1].find("i").attr("class")) {
-				matchCard(open);
-			}
-
-			hideCard(open.pop());
-			hideCard(open.pop());
-			endTurn();
-	}
 };
 
 /**
@@ -267,24 +270,31 @@ function openCard(card){
 */
 deck.on("click", ".card", function(event) {
 
+	/* if a game is not started start the timer*/
 	if (gameFlag===0){
 		timerId = setInterval(updateTimer, 3000);
 		gameFlag = 1;
 	}
 
-	let selectedCard =($(this));
+	/* if 2 cards are already open do nothing */
+	if (open.length <2){
 
-	if (!selectedCard.hasClass("open") && !selectedCard.hasClass("match")){
+		let selectedCard =($(this));
+
+		/* If card is not already open or matched open card */
+		if (!selectedCard.hasClass("open") && !selectedCard.hasClass("match")){
 			showCard(selectedCard);
+			openCard(selectedCard);
 			setTimeout(function(){
-      			openCard(selectedCard);
+      			compareCards();
       		},1000);
-	}
-	// else {
+		}
+		// else {
 		/* else adds functionality to deselct a card (counts as a move)*/
-	// 	setTimeout(function(){
-	// 		hideCard(open.pop());
-	// 		endTurn();
-	// 	},1000);
-	// }
+		// 	setTimeout(function(){
+		// 		hideCard(open.pop());
+		// 		endTurn();
+		// 	},1000);
+		// }
+	}
 });
