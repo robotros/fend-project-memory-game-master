@@ -279,11 +279,13 @@ deck.on("click", ".card", function(event) {
 			showCard(selectedCard);
 			setTimeout(function(){
       			openCard(selectedCard);
-      		},1000)
-	} else {
-		setTimeout(function(){
-			hideCard(open.pop());
-			endTurn();
-		},1000)
+      		},1000);
 	}
+	// else {
+		/* else adds functionality to deselct a card (counts as a move)*/
+	// 	setTimeout(function(){
+	// 		hideCard(open.pop());
+	// 		endTurn();
+	// 	},1000);
+	// }
   });
