@@ -1,6 +1,6 @@
 /**
 * Author: Aron Roberts
-* Last Updated: 05/29/2018
+* Last Updated: 05/30/2018
 * Descirption: Matching Game
 *
 */
@@ -97,36 +97,35 @@ function updateScore(){
 		}
 		i++;
 	});
-
-}
+};
 
 /**
 * @description updates the timer
 */
 function updateTimer(){
 	timer.html(++seconds);
-}
+};
 
 /**
 * @description stops the timer
 */
 function stopTimer(){
 	clearInterval(timerId);
-}
+};
 
 /**
 * @description resets the move counter to 0
 */
 function resetTurns(){
 	turns=0;
-}
+};
 
 /**
 * @description resets the star count to 3
 */
 function resetStars(){
 	starCount = 3;
-}
+};
 
 /**
 * @description resets the timer to 0 and updates html
@@ -135,14 +134,14 @@ function resetTimer(){
 	stopTimer();
 	seconds = 0;
 	timer.html(seconds);
-}
+};
 
 /**
 * @description resets the score to 0
 */
 function resetScore(){
 	score = 0;
-}
+};
 
 /**
 * @description Starts new game
@@ -261,7 +260,7 @@ function openCard(card){
 			hideCard(open.pop());
 			endTurn();
 	}
-}
+};
 
 /**
 * @description listener for a card.
@@ -288,4 +287,4 @@ deck.on("click", ".card", function(event) {
 	// 		endTurn();
 	// 	},1000);
 	// }
-  });
+});
