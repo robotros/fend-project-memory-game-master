@@ -5,50 +5,43 @@
 *
 */
 
-
 /*
  * Create a list that holds all of your cards
  */
-const starterDeck = ["fa fa-diamond",
-	"fa fa-diamond",
-	"fa fa-paper-plane-o",
+let starterDeck = ["fa fa-diamond",
 	"fa fa-paper-plane-o",
 	"fa fa-anchor",
-	"fa fa-anchor",
-	"fa fa-bolt",
 	"fa fa-bolt",
 	"fa fa-cube",
-	"fa fa-cube",
-	"fa fa-leaf",
 	"fa fa-leaf",
 	"fa fa-bicycle",
-	"fa fa-bicycle",
-	"fa fa-bomb",
 	"fa fa-bomb"];
 
-// DOM Variables
-const stars = $(".stars");
-const moves = $(".moves");
-const deck = $(".deck");
-const timer = $(".timer");
-const gameOverModal = $("#gameOverModal");
-const starsModal = $(".starsModal");
+starterDeck = [...starterDeck, ...starterDeck];
 
-// buttons
-const restart = $(".restart");
+// DOM Variables
+const stars = $(".stars"),
+	moves = $(".moves"),
+	deck = $(".deck"),
+	timer = $(".timer"),
+	gameOverModal = $("#gameOverModal"),
+	starsModal = $(".starsModal"),
+
+	// buttons
+	restart = $(".restart"),
+
+	// star conditions
+	threeStar = 20,
+	twoStar =25;
 
 // variables
-let open = [];
-let turns = 0;
-let score = 0;
-let seconds = 0;
-let starCount = 3;
-let timerId=0;
-let gameFlag=0;
-
-// star conditions
-const threeStar = 20;
-const twoStar =25;
+let open = [],
+	turns = 0,
+	score = 0,
+	seconds = 0,
+	starCount = 3,
+	timerId=0,
+	gameFlag=0;
 
 /**
 * @description Shuffle function from http://stackoverflow.com/a/2450976
